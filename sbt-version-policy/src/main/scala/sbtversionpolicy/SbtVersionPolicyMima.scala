@@ -10,7 +10,7 @@ import MimaPlugin.autoImport.mimaPreviousArtifacts
 object SbtVersionPolicyMima extends AutoPlugin {
 
   override def trigger = allRequirements
-  override def requires = MimaPlugin
+  override def requires = MimaPlugin && SbtVersionPolicyPlugin
 
   object autoImport {
     val versionPolicyPreviousVersions = settingKey[Seq[String]]("Previous versions to check compatibility against.")

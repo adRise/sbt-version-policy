@@ -5,7 +5,7 @@ import sbt._
 
 object SbtVersionPolicyPlugin extends AutoPlugin {
 
-  override def trigger = allRequirements
+  override def trigger = noTrigger
   override def requires = MimaPlugin
 
   private def mimaIgnoreVersion(version: String): Seq[Def.Setting[_]] =
