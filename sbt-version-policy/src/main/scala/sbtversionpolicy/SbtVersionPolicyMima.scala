@@ -57,7 +57,7 @@ object SbtVersionPolicyMima extends AutoPlugin {
         // may let the version policy check pass when it should not.
         sys.error(
           s"""Previous version cannot be calculated from the the current version $name:$version.
-             |Please set `versionPolicyPreviousVersionRepositories` for the repositories from which metadata for previous versions can be downloaded.
+             |Please set `versionPolicyPreviousVersionRepositories` for where to fetch the artifact metadata.
              |Run `inspect versionPolicyPreviousVersionRepositories` for description of valid values.
              |""".stripMargin
         )
