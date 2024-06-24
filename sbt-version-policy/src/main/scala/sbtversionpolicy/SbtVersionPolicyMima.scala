@@ -52,6 +52,9 @@ object SbtVersionPolicyMima extends AutoPlugin {
 
     val repos = versionPolicyPreviousVersionRepositories.?.value match {
       case None =>
+        // when it is necessary to fetch the artifact metadata but the repositories is not configured
+        // we throw instead of fallback to some defaults, because a mis-configuration of the setting
+        // may let the version policy check pass when it should not.
         sys.error(
           s"""Previous version cannot be calculated from the the current version $name:$version.
              |Please set `versionPolicyPreviousVersionRepositories` for the repositories from which metadata for previous versions can be downloaded.
