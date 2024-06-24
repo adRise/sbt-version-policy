@@ -118,7 +118,8 @@ lazy val h = project
 inThisBuild(List(
   scalaVersion := "2.12.11",
   organization := "io.github.alexarchambault.sbtversionpolicy.test",
-  versionPolicyIntention := Compatibility.BinaryCompatible
+  versionPolicyIntention := Compatibility.BinaryCompatible,
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
 ))
 
 lazy val check = taskKey[Unit]("")

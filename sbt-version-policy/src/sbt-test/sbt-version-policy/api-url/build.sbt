@@ -17,7 +17,7 @@ lazy val a = project
 inThisBuild(List(
   scalaVersion := "2.12.11",
   organization := "io.github.alexarchambault.sbtversionpolicy.test",
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
 ))
 
 lazy val check = taskKey[Unit]("")
-

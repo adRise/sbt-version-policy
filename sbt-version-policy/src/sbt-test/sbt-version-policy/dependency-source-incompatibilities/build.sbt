@@ -131,4 +131,5 @@ inThisBuild(List(
   scalaVersion := "2.12.11",
   libraryDependencySchemes += "org.typelevel" %% "cats-kernel" % "semver-spec",
   organization := "io.github.alexarchambault.sbtversionpolicy.test",
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
 ))
