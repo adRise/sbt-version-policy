@@ -1,10 +1,3 @@
-inThisBuild(List(
-  scalaVersion := "2.12.11",
-  organization := "io.github.alexarchambault.sbtversionpolicy.test",
-  versionPolicyIntention := Compatibility.BinaryCompatible,
-  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
-))
-
 lazy val a = project
   .settings(
     shared,
@@ -145,3 +138,10 @@ lazy val checkMimaPreviousArtifactsSet = Def.settings(
     assert(versions.nonEmpty, "No MiMa previous artifact found")
   }
 )
+
+inThisBuild(List(
+  scalaVersion := "2.12.11",
+  organization := "io.github.alexarchambault.sbtversionpolicy.test",
+  versionPolicyIntention := Compatibility.BinaryCompatible,
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
+))

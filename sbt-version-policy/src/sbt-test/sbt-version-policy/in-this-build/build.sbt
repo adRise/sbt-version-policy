@@ -1,11 +1,3 @@
-inThisBuild(List(
-  scalaVersion := "2.12.11",
-  organization := "io.github.alexarchambault.sbtversionpolicy.test2",
-  versionPolicyIntention := Compatibility.BinaryCompatible,
-  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % "early-semver",
-  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
-))
-
 lazy val a = project
   .settings(
     name := "simple-test",
@@ -23,3 +15,11 @@ lazy val b = project
     ),
     version := "0.1.1"
   )
+
+inThisBuild(List(
+  scalaVersion := "2.12.11",
+  organization := "io.github.alexarchambault.sbtversionpolicy.test2",
+  versionPolicyIntention := Compatibility.BinaryCompatible,
+  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % "early-semver",
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
+))

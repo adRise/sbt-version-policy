@@ -1,10 +1,3 @@
-inThisBuild(List(
-  scalaVersion := "2.12.11",
-  libraryDependencySchemes += "org.typelevel" %% "cats-kernel" % "semver-spec",
-  organization := "io.github.alexarchambault.sbtversionpolicy.test",
-  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
-))
-
 lazy val a = project
   .settings(
     name := "source-incompat-test",
@@ -133,3 +126,10 @@ lazy val l = project
     ),
     version := "2.1.1"
   )
+
+inThisBuild(List(
+  scalaVersion := "2.12.11",
+  libraryDependencySchemes += "org.typelevel" %% "cats-kernel" % "semver-spec",
+  organization := "io.github.alexarchambault.sbtversionpolicy.test",
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
+))

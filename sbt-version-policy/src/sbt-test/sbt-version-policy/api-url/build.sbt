@@ -1,9 +1,3 @@
-inThisBuild(List(
-  scalaVersion := "2.12.11",
-  organization := "io.github.alexarchambault.sbtversionpolicy.test",
-  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
-))
-
 lazy val a = project
   .settings(
     name := "simple-test",
@@ -20,5 +14,10 @@ lazy val a = project
     }
   )
 
-lazy val check = taskKey[Unit]("")
+inThisBuild(List(
+  scalaVersion := "2.12.11",
+  organization := "io.github.alexarchambault.sbtversionpolicy.test",
+  versionPolicyPreviousVersionRepositories := CoursierDefaultRepositories,
+))
 
+lazy val check = taskKey[Unit]("")
