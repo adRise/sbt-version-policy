@@ -2,9 +2,8 @@ package sbtversionpolicy.internal
 
 import coursier.version.{ModuleMatchers, VersionCompatibility}
 import sbt.Compile
-import sbt.librarymanagement.{ConfigurationReport, CrossVersion, ModuleID}
+import sbt.librarymanagement.{ConfigurationReport, CrossVersion, DependencyResolution, ModuleID, ScalaModuleInfo, UnresolvedWarningConfiguration, UpdateConfiguration, syntax}
 import sbt.util.Logger
-import sbt.librarymanagement.{DependencyResolution, ScalaModuleInfo, UnresolvedWarningConfiguration, UpdateConfiguration}
 import sbtversionpolicy.DependencyCheckReport
 
 object DependencyCheck {
@@ -66,7 +65,7 @@ object DependencyCheck {
 
     val previousReport = depRes.update(mod, updateConfig, warningConfig, log)
       .fold(thing => throw thing.resolveException, identity)
-    val previousCompileReport = previousReport.configuration(Compile).getOrElse {
+    val previousCompileReport = previousReport.configuration(syntax.Runtime).getOrElse {
       sys.error(s"Compile configuration not found in previous update report $previousReport")
     }
     val previousDependencies = DependencyCheck.modulesOf(previousCompileReport, excludedModules, sv, sbv, moduleToVersion, log)
