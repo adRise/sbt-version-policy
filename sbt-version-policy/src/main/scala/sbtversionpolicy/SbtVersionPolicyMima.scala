@@ -78,7 +78,7 @@ object SbtVersionPolicyMima extends AutoPlugin {
         previousVersionResolvers.flatMap { res =>
           val repoOpt = sbtversionpolicy.internal.Resolvers.repository(res, ivyProps, s => System.err.println(s))
           if (repoOpt.isEmpty)
-            System.err.println(s"Warning: ignoring repository ${res.name} to get previous version")
+            sys.error(s"Warning: ignoring repository ${res.name} to get previous version")
           repoOpt
         }
     }
