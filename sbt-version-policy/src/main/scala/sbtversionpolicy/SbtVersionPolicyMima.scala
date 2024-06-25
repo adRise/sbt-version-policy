@@ -4,7 +4,7 @@ import scala.collection.JavaConverters.*
 import scala.util.control.NoStackTrace
 import sbt.{AutoPlugin, Def, Keys, PluginTrigger, Plugins, settingKey, taskKey}
 import sbt.KeyRanks.Invisible
-import sbt.librarymanagement.{CrossVersion, ModuleID}
+import sbt.librarymanagement.{CrossVersion, ModuleID, Resolver}
 import coursier.version.{Previous, Version, VersionCompatibility}
 import com.typesafe.tools.mima.plugin.MimaPlugin
 import MimaPlugin.autoImport.mimaPreviousArtifacts
@@ -21,7 +21,7 @@ object SbtVersionPolicyMima extends AutoPlugin {
 
     sealed trait PreviousVersionRepositories
     case object CoursierDefaultRepositories extends PreviousVersionRepositories
-    case class SbtResolvers(resolverNames: Set[String]) extends PreviousVersionRepositories
+    case class SbtResolvers(resolverNames: Set[Resolver]) extends PreviousVersionRepositories
 
     private[sbtversionpolicy] val getVersionPolicyPreviousVersions =
       taskKey[Seq[String]]("Get previous versions or throw the error if it failed to resolve at load time").withRank(Invisible)
@@ -67,15 +67,9 @@ object SbtVersionPolicyMima extends AutoPlugin {
         log.info(s"Getting previous versions of $name from coursier default repositories: ${repositories.mkString("\n", "\n", "")}")
         repositories
 
-      case Some(SbtResolvers(resolverNames)) =>
-        log.info(s"Getting previous versions of $name from resolvers: ${resolverNames.mkString("\n", "\n", "")}")
-        val resolvers = Keys.resolvers.value.map(res => res.name -> res).toMap
-        val previousVersionResolvers = resolverNames.collect(resolvers).toSeq
-        val unrecognizedResolvers = resolverNames -- previousVersionResolvers.map(_.name)
-        if (unrecognizedResolvers.nonEmpty) {
-          sys.error(s"""Unrecognized resolver names: ${unrecognizedResolvers.mkString(", ")}""")
-        }
-        previousVersionResolvers.flatMap { res =>
+      case Some(SbtResolvers(resolvers)) =>
+        log.info(s"Getting previous versions of $name from resolvers: ${resolvers.map(_.name).mkString("[", ",", "]")}")
+        resolvers.toSeq.flatMap { res =>
           val repoOpt = sbtversionpolicy.internal.Resolvers.repository(res, ivyProps, s => System.err.println(s))
           if (repoOpt.isEmpty)
             sys.error(s"Warning: ignoring repository ${res.name} to get previous version")
