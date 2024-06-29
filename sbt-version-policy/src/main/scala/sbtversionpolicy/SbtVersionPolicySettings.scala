@@ -113,7 +113,7 @@ object SbtVersionPolicySettings {
       val sv = scalaVersion.value
       val sbv = scalaBinaryVersion.value
 
-      val compileReport = update.value.configuration(Compile).getOrElse {
+      val compileReport = update.value.configuration(Runtime).getOrElse {
         sys.error("Compile configuration not found in update report")
       }
 
